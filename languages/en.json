@@ -1,0 +1,137 @@
+{
+    "errors": {
+        "e1": "An error occurred while running the command!",
+        "e2": "Rick isn't in a voice channel.",
+        "e3": "To use the command, enter the voice channel where Rick is!",
+        "e4": "You have to be in the same voice channel as Rick.",
+        "e5": "**DO NOT DELETE THIS MESSAGE BY HAND** Use the 'Close' button instead! \n - Message from the developer - \n Deleting by hand will crash the bot! I am working on a fix...",
+        "e6": "asd1",
+        "e7": "asd2",
+        "e8": "asd3"
+    },
+    "commands": {
+        "controller": {
+            "command": "controller",
+            "hint": "Starts the interactive player.",
+            "messages": {
+                "m1": "Close",
+                "m2": "The controller expired, make a new one!",
+                "m3": "There is already an active controller."
+            }
+        },
+        "dc": {
+            "command": "dc",
+            "hint": "Disconnects Rick from the voice channel.",
+            "messages": {
+                "m1": "Disconnected!"
+            }
+        },
+        "devinfo": {
+            "command": "devinfo",
+            "hint": {
+                "message": "Shows development information. Only the developer can use it.",
+                "options": {
+                    "o1": {
+                        "name": "id",
+                        "description": "Get information about a server."
+                    }
+                }
+            },
+            "messages": {
+                "m1": "Only the developer can use this command!",
+                "m2": "No server with that id.",
+                "m3": "Owner",
+                "m4": "Owner Id",
+                "m5": "Id",
+                "m6": "Created",
+                "m7": "Joined",
+                "m8": "Members"
+            }
+        },
+        "list": {
+            "command": "list",
+            "hint": "Shows the playlist.",
+            "messages": {
+                "m1": "Playlist:",
+                "m2": "Repeat(looping):",
+                "m3": "on",
+                "m4": "off",
+                "m5": "Playing:",
+                "m6": "stopped",
+                "m7": "started",
+                "m8": "Song",
+                "m9": "Added by"
+            }
+        },
+        "loop": {
+            "command": "loop",
+            "hint": "Turn repeat(looping) on and off.",
+            "messages": {
+                "m1": "Repeat(looping) on!",
+                "m2": "Repeat(looping) off!"
+            }
+        },
+        "play": {
+            "command": "play",
+            "hint": {
+                "message": "Plays a song from a YouTube link.",
+                "options": {
+                    "o1": {
+                        "name": "link",
+                        "description": "YouTube video's link."
+                    }
+                }
+            },
+            "messages": {
+                "m1": "You must enter a voice channel!",
+                "m2": "The link is wrong or such music cannot be found!",
+                "m3": "Playing:"
+            }
+        },
+        "prev": {
+            "command": "prev",
+            "hint": "Jumps back to previous track.",
+            "messages": {
+                "m1": "Jumping back!",
+                "m2": "Jumping back failed!"
+            }
+        },
+        "skip": {
+            "command": "skip",
+            "hint": "Skips the currently played song.",
+            "messages": {
+                "m1": "Skipping!",
+                "m2": "Skipping failed!"
+            }
+        },
+        "start": {
+            "command": "start",
+            "hint": "Starts the stopped song.",
+            "messages": {
+                "m1": "Starting!"
+            }
+        },
+        "stop": {
+            "command": "stop",
+            "hint": "Stops the currently playing song.",
+            "messages": {
+                "m1": "Stopping!"
+            }
+        }
+    },
+    "modals": {
+        "addModal": {
+            "title": "Add-song",
+            "label": "YouTube Link:",
+            "placeholder": "Type here the link..."
+        }
+    },
+    "controller": {
+        "title": "Interactive Player",
+        "messages": {
+            "m1": "Previous",
+            "m2": "Now",
+            "m3": "Next"
+        }
+    }
+}

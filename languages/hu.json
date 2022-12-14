@@ -1,0 +1,137 @@
+{
+    "errors": {
+        "e1": "Hiba történt a parancs futtatása közben!",
+        "e2": "Rick nincs bent egy hangszobában sem.",
+        "e3": "A parancs használatához lépj be a hangszobába ahol Rick van!",
+        "e4": "Ugyan abban a hangszobában kell lenned mint Rick.",
+        "e5": "(not used) **NE TÖRÖLD KI KÉZZEL EZT AZ ÜZENETET** Használd a 'Bezárás' gombot! \n - Üzenet a fejlesztőtől - \n Ha mégis megteszed, kicrashel a bot. Dolgozom a javításon...",
+        "e6": "Nem férek hozzá a hangcsatornához amiben vagy!",
+        "e7": "Nincs jogom csatlakozni a hangcsatornához amiben vagy!",
+        "e8": "Nincs jogom beszélni a hangcsatornában amiben vagy!"
+    },
+    "commands": {
+        "controller": {
+            "command": "controller",
+            "hint": "Interaktív lejátszó indítása.",
+            "messages": {
+                "m1": "Bezárás",
+                "m2": "A controller lejárt, készíts újat!",
+                "m3": "Már van egy aktív controller."
+            }
+        },
+        "dc": {
+            "command": "dc",
+            "hint": "Rick lecsatlakoztatása a hangszobáról.",
+            "messages": {
+                "m1": "Lecsatlakoztatva!"
+            }
+        },
+        "devinfo": {
+            "command": "devinfo",
+            "hint": {
+                "message": "Shows development information. Only the developer can use it.",
+                "options": {
+                    "o1": {
+                        "name": "id",
+                        "description": "Get information about a server."
+                    }
+                }
+            },
+            "messages": {
+                "m1": "Only the developer can use this command!",
+                "m2": "No server with that id.",
+                "m3": "Owner",
+                "m4": "Owner Id",
+                "m5": "Id",
+                "m6": "Created",
+                "m7": "Joined",
+                "m8": "Members"
+            }
+        },
+        "list": {
+            "command": "list",
+            "hint": "Megmutatja a lejátszási listát.",
+            "messages": {
+                "m1": "Lejátszási lista:",
+                "m2": "Ismétlés:",
+                "m3": "bekapcsolva",
+                "m4": "kikapcsolva",
+                "m5": "Lejátszás:",
+                "m6": "megállítva",
+                "m7": "elindítva",
+                "m8": "Zene",
+                "m9": "Hozzáadta"
+            }
+        },
+        "loop": {
+            "command": "loop",
+            "hint": "Ismétlés be- és kikapcsolása.",
+            "messages": {
+                "m1": "Ismétlés bekapcsolva!",
+                "m2": "Ismétlés kikapcsolva!"
+            }
+        },
+        "play": {
+            "command": "play",
+            "hint": {
+                "message": "Zene lejátszás YouTube link alapján.",
+                "options": {
+                    "o1": {
+                        "name": "link",
+                        "description": "YouTube videó linkje."
+                    }
+                }
+            },
+            "messages": {
+                "m1": "Be kell lépned egy hangcsatornába!",
+                "m2": "A link rossz vagy ilyen zene nem található!",
+                "m3": "Lejátszás:"
+            }
+        },
+        "prev": {
+            "command": "prev",
+            "hint": "Visszaugrás az előző zenére.",
+            "messages": {
+                "m1": "Visszaugrás!",
+                "m2": "Nem sikerült visszaugrani!"
+            }
+        },
+        "skip": {
+            "command": "skip",
+            "hint": "Jelenleg játszott zene átugrása.",
+            "messages": {
+                "m1": "Átugrás!",
+                "m2": "Nem sikerült átugrani!"
+            }
+        },
+        "start": {
+            "command": "start",
+            "hint": "Megállított zene elindítása.",
+            "messages": {
+                "m1": "Elindítás!"
+            }
+        },
+        "stop": {
+            "command": "stop",
+            "hint": "Jelenleg játszott zene megállítása.",
+            "messages": {
+                "m1": "Megállítás!"
+            }
+        }
+    },
+    "modals": {
+        "addModal": {
+            "title": "Zene-hozzáadása",
+            "label": "YouTube Link:",
+            "placeholder": "Írd ide a linket..."
+        }
+    },
+    "controller": {
+        "title": "Interaktív Lejátszó",
+        "messages": {
+            "m1": "Előző",
+            "m2": "Most",
+            "m3": "Következő"
+        }
+    }
+}
