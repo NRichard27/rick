@@ -1,5 +1,6 @@
 const playdl = require('play-dl')
 
+const { EmbedBuilder } = require('discord.js')
 const { getVoiceConnection } = require('@discordjs/voice')
 
 const hu = require('../languages/hu.json')
@@ -9,7 +10,7 @@ const en = require('../languages/en.json')
 const pino = require('pino')
 const logger = pino()
 
-let getSong = async (link) => {
+const getSong = async (link) => {
     let youtube = playdl.yt_validate(link)
 
     if (youtube && youtube != 'search') {
@@ -24,7 +25,7 @@ let getSong = async (link) => {
     return undefined
 }
 
-let transformArray = (arr, mod) => {
+const transformArray = (arr, mod) => {
     let result = undefined
     if (mod > 0) {
         result = []
@@ -35,7 +36,7 @@ let transformArray = (arr, mod) => {
     return result
 }
 
-let getLanguage = (locale) => {
+const getLanguage = (locale) => {
     if (locale == 'hu') {
         return hu
     }
@@ -47,9 +48,79 @@ let getLanguage = (locale) => {
     return en
 }
 
-let isConnection = (guildId) => {
+const isConnection = (guildId) => {
     let connection = getVoiceConnection(guildId)
     return connection ? true : false
+}
+
+const getControllerEmbed = (playlist, lang, icon) => {
+    let songs = ''
+    let authors = ''
+
+    if (playlist.has_prev()) {
+        let song = playlist.list[playlist.current - 1]
+        songs += `${lang.controller.messages.m1}: [${song.title
+            .substring(0, 30)
+            .trim()}${song.title.length > 30 ? '...' : ''}](${song.link})\n`
+        authors += `${song.author}\n`
+    }
+
+    let currentSong = playlist.list[playlist.current]
+    songs += `:notes: **${lang.controller.messages.m2}: [${currentSong.title
+        .substring(0, 30)
+        .trim()}${currentSong.title.length > 30 ? '...' : ''}](${
+        currentSong.link
+    })**\n`
+    authors += `**${currentSong.author}**\n`
+
+    if (playlist.has_next()) {
+        let song = playlist.list[playlist.current + 1]
+        songs += `${lang.controller.messages.m3}: [${song.title
+            .substring(0, 30)
+            .trim()}${song.title.length > 30 ? '...' : ''}](${song.link})`
+        authors += `${song.author}\n`
+    }
+
+    let embed = new EmbedBuilder()
+        .setColor(0x0099ff)
+        .setTitle(`**${lang.controller.title}**`)
+        .setThumbnail(icon)
+        .addFields({
+            name: lang.commands.list.messages.m2,
+            value: playlist.looping
+                ? lang.commands.list.messages.m3
+                : lang.commands.list.messages.m4,
+        })
+        .addFields({
+            name: lang.commands.list.messages.m5,
+            value: playlist.paused
+                ? lang.commands.list.messages.m6
+                : lang.commands.list.messages.m7,
+        })
+        .addFields(
+            {
+                name: lang.commands.list.messages.m8,
+                value: songs,
+                inline: true,
+            },
+            {
+                name: lang.commands.list.messages.m9,
+                value: authors,
+                inline: true,
+            }
+        )
+
+    return embed
+}
+
+const checkPermissions = (permissions, channel, user, messages) => {
+    for (const perm of permissions) {
+        if (!channel.permissionsFor(user).toArray().includes(perm)) {
+            return messages[permissions.indexOf(perm)]
+        }
+    }
+
+    return true
 }
 
 module.exports = {
@@ -57,6 +128,8 @@ module.exports = {
     transformArray,
     getLanguage,
     isConnection,
+    getControllerEmbed,
+    checkPermissions,
     playdl,
     logger,
     languages: {

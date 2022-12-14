@@ -1,4 +1,18 @@
-const { getLanguage, isConnection, logger } = require('./utils')
+const {
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle,
+    ActionRowBuilder,
+} = require('discord.js')
+const { getVoiceConnection } = require('@discordjs/voice')
+const {
+    getLanguage,
+    isConnection,
+    getControllerEmbed,
+    getSong,
+    checkPermissions,
+    logger,
+} = require('./utils')
 
 let commandHandler = async (interaction, client) => {
     logger.info({
@@ -83,6 +97,158 @@ let commandHandler = async (interaction, client) => {
     }
 }
 
+let buttonHandler = async (interaction, client) => {
+    const lang = getLanguage(interaction.locale)
+    let playlist = client.playlists.get(interaction.guildId)
+
+    const permissions = checkPermissions(
+        ['ViewChannel', 'ManageMessages', 'EmbedLinks'],
+        interaction.channel,
+        client.user,
+        [lang.errors.e9, lang.errors.e11, lang.errors.e12]
+    )
+
+    if (permissions != true) {
+        return interaction.reply({
+            content: permissions,
+            ephemeral: false,
+        })
+    }
+
+    if (!isConnection(interaction.guild.id)) {
+        return interaction.message.delete()
+    }
+
+    if (!interaction.member.voice.channel) {
+        return interaction.reply({
+            content: lang.errors.e3,
+            ephemeral: true,
+        })
+    }
+
+    if (
+        interaction.guild.members.cache.get(client.user.id).voice.channelId !=
+        interaction.member.voice.channelId
+    ) {
+        return interaction.reply({
+            content: lang.errors.e4,
+            ephemeral: true,
+        })
+    }
+
+    if (interaction.customId == 'play_btn') {
+        const modal = new ModalBuilder()
+            .setCustomId('addSong')
+            .setTitle(lang.modals.addModal.title)
+            .addComponents(
+                new ActionRowBuilder().addComponents(
+                    new TextInputBuilder()
+                        .setCustomId('linkInput')
+                        .setLabel(lang.modals.addModal.label)
+                        .setPlaceholder(lang.modals.addModal.placeholder)
+                        .setStyle(TextInputStyle.Short)
+                        .setValue('')
+                        .setRequired(true)
+                )
+            )
+
+        return interaction.showModal(modal)
+    }
+
+    await interaction.deferUpdate()
+
+    if (interaction.customId == 'close_btn') {
+        playlist.controller = false
+
+        interaction.message.edit({
+            content: lang.commands.controller.messages.m2,
+            components: [],
+            embeds: [],
+        })
+
+        return
+    }
+
+    if (interaction.customId == 'dc_btn') {
+        interaction.message.edit({
+            content: lang.commands.controller.messages.m2,
+            components: [],
+            embeds: [],
+        })
+
+        playlist.stop()
+
+        let connection = getVoiceConnection(playlist.id)
+        connection.destroy()
+
+        playlist.reset()
+
+        client.playlists.delete(playlist.id)
+
+        return
+    }
+
+    switch (interaction.customId) {
+        case 'prev_btn':
+            playlist.prev()
+            break
+        case 'start_btn':
+            playlist.start()
+            break
+        case 'stop_btn':
+            playlist.stop()
+            break
+        case 'skip_btn':
+            playlist.skip()
+            break
+        case 'loop_btn':
+            playlist.loop()
+            break
+    }
+
+    interaction.message.edit({
+        embeds: [
+            getControllerEmbed(playlist, lang, interaction.guild.iconURL()),
+        ],
+    })
+}
+
+let modalHandler = async (interaction, client) => {
+    const lang = getLanguage(interaction.locale)
+    let playlist = client.playlists.get(interaction.guildId)
+
+    if (interaction.customId == 'addSong') {
+        const link = interaction.fields.getTextInputValue('linkInput')
+
+        let song = await getSong(link)
+        if (!song)
+            return interaction.reply({
+                content: lang.commands.play.messages.m2,
+                ephemeral: true,
+            })
+        song.author = interaction.member.user.tag
+
+        if (playlist.idle()) {
+            playlist.play(song)
+        } else {
+            playlist.add(song)
+        }
+
+        interaction.message.edit({
+            embeds: [
+                getControllerEmbed(playlist, lang, interaction.guild.iconURL()),
+            ],
+        })
+
+        await interaction.reply({
+            content: `${lang.commands.play.messages.m3} ${song.link}`,
+            ephemeral: true,
+        })
+    }
+}
+
 module.exports = {
     commandHandler,
+    buttonHandler,
+    modalHandler,
 }

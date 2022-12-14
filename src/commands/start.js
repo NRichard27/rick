@@ -24,7 +24,7 @@ module.exports = {
         playlist.start()
         interaction.reply({
             content: lang.commands.start.messages.m1,
-            ephemeral: false,
+            ephemeral: playlist.controller,
         })
     },
 }

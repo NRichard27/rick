@@ -27,7 +27,7 @@ module.exports = {
             content: `${
                 playlist.loop() ? command.messages.m1 : command.messages.m2
             }`,
-            ephemeral: false,
+            ephemeral: playlist.controller,
         })
     },
 }

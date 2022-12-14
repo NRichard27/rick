@@ -7,7 +7,11 @@
         "e5": "**DO NOT DELETE THIS MESSAGE BY HAND** Use the 'Close' button instead! \n - Message from the developer - \n Deleting by hand will crash the bot! I am working on a fix...",
         "e6": "asd1",
         "e7": "asd2",
-        "e8": "asd3"
+        "e8": "asd3",
+        "e9": "asd4",
+        "e10": "asd5",
+        "e11": "asd6",
+        "e12": "asd7"
     },
     "commands": {
         "controller": {

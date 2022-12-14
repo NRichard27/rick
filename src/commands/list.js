@@ -84,6 +84,6 @@ module.exports = {
             embeds.push(embed)
         })
 
-        interaction.reply({ embeds, ephemeral: false })
+        interaction.reply({ embeds, ephemeral: playlist.controller })
     },
 }

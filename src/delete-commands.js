@@ -62,4 +62,4 @@ function delete_commands(guildId, commandId) {
 //delete_commands(undefined, 'commandIdHere')
 
 // If guildId and commandId are not set, delete all commands globally:
-//delete_commands()
+delete_commands()

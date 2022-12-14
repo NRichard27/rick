@@ -187,7 +187,7 @@ module.exports = {
 
             return interaction.reply({
                 content: `${command.messages.m3} ${song.link}`,
-                ephemeral: false,
+                ephemeral: playlist.controller,
             })
         }
 
@@ -206,7 +206,7 @@ module.exports = {
         })
         interaction.reply({
             content: `${command.messages.m3} ${song.link}`,
-            ephemeral: false,
+            ephemeral: playlist.controller,
         })
     },
 }

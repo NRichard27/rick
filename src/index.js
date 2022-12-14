@@ -8,7 +8,11 @@ const {
     GatewayIntentBits,
     ActivityType,
 } = require('discord.js')
-const { commandHandler } = require('./interactions')
+const {
+    commandHandler,
+    buttonHandler,
+    modalHandler,
+} = require('./interactions')
 const { logger } = require('./utils')
 
 const client = new Client({
@@ -52,6 +56,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     if (interaction.isChatInputCommand()) {
         return commandHandler(interaction, client)
+    }
+
+    if (interaction.isButton()) {
+        return buttonHandler(interaction, client)
+    }
+
+    if (interaction.isModalSubmit()) {
+        return modalHandler(interaction, client)
     }
 })
 

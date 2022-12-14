@@ -7,7 +7,11 @@
         "e5": "(not used) **NE TÖRÖLD KI KÉZZEL EZT AZ ÜZENETET** Használd a 'Bezárás' gombot! \n - Üzenet a fejlesztőtől - \n Ha mégis megteszed, kicrashel a bot. Dolgozom a javításon...",
         "e6": "Nem férek hozzá a hangcsatornához amiben vagy!",
         "e7": "Nincs jogom csatlakozni a hangcsatornához amiben vagy!",
-        "e8": "Nincs jogom beszélni a hangcsatornában amiben vagy!"
+        "e8": "Nincs jogom beszélni a hangcsatornában amiben vagy!",
+        "e9": "Nincs jogom megnézni ezt a csatornát!",
+        "e10": "Nincs jogom üzenetet küldeni ezen a csatornán!",
+        "e11": "Nincs jogom üzeneteket kezelni ezen a csatornán!",
+        "e12": "Nincs jogom linkeket küldeni ezen a csatornán!"
     },
     "commands": {
         "controller": {

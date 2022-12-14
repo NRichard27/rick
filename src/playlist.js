@@ -13,6 +13,7 @@ module.exports = function Playlist(guildId) {
     this.player = createAudioPlayer()
     this.looping = false
     this.paused = false
+    this.controller = false
 
     this.player.on(AudioPlayerStatus.Idle, async () => {
         if (!this.looping) {
@@ -63,12 +64,16 @@ module.exports = function Playlist(guildId) {
         connection.subscribe(this.player)
     }
 
+    this.has_prev = () => {
+        return this.list[this.current - 1] != undefined
+    }
+
     this.prev = () => {
         logger.info({
             place: 'playlist',
             action: 'prev',
         })
-        if (this.list[this.current - 1] != undefined) {
+        if (this.has_prev()) {
             this.current -= 1
             this.play()
             return true
@@ -77,12 +82,16 @@ module.exports = function Playlist(guildId) {
         }
     }
 
+    this.has_next = () => {
+        return this.list[this.current + 1] != undefined
+    }
+
     this.skip = () => {
         logger.info({
             place: 'playlist',
             action: 'skip',
         })
-        if (this.list[this.current + 1] != undefined) {
+        if (this.has_next()) {
             this.current += 1
             this.play()
             return true
@@ -135,5 +144,6 @@ module.exports = function Playlist(guildId) {
         this.player = 0
         this.looping = false
         this.paused = false
+        this.controller = false
     }
 }
