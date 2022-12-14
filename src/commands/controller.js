@@ -4,7 +4,12 @@ const {
     ButtonBuilder,
     ButtonStyle,
 } = require('discord.js')
-const { languages, getControllerEmbed, checkPermissions } = require('../utils')
+const {
+    languages,
+    getControllerEmbed,
+    checkPermissions,
+    logger,
+} = require('../utils')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,9 +25,24 @@ module.exports = {
         })
         .setDMPermission(false),
     execute: async (interaction, playlist, lang, client) => {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'commands',
+            command: 'controller',
+        })
+
         const command = lang.commands.controller
 
         if (playlist.controller) {
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'commands',
+                command: 'controller',
+                action: 'already exists',
+            })
+
             return interaction.reply({
                 content: command.messages.m3,
                 ephemeral: true,
@@ -37,6 +57,14 @@ module.exports = {
         )
 
         if (permissions != true) {
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'commands',
+                command: 'controller',
+                action: 'permission error',
+            })
+
             return interaction.reply({
                 content: permissions,
                 ephemeral: false,

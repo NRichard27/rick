@@ -32,7 +32,7 @@ let commandHandler = async (interaction, client) => {
             guild: interaction.guild.id,
             user: interaction.member.user.tag,
             place: 'interactions',
-            action: 'no command found',
+            action: 'command: no command found',
         })
         return interaction.reply({
             content: lang.errors.e1,
@@ -49,7 +49,7 @@ let commandHandler = async (interaction, client) => {
                 guild: interaction.guild.id,
                 user: interaction.member.user.tag,
                 place: 'interactions',
-                action: 'rick not in voice',
+                action: 'command: rick not in voice',
             })
             return interaction.reply({
                 content: lang.errors.e2,
@@ -62,7 +62,7 @@ let commandHandler = async (interaction, client) => {
                 guild: interaction.guild.id,
                 user: interaction.member.user.tag,
                 place: 'interactions',
-                action: 'person not in voice',
+                action: 'command: person not in voice',
             })
             return interaction.reply({
                 content: lang.errors.e3,
@@ -78,7 +78,7 @@ let commandHandler = async (interaction, client) => {
                 guild: interaction.guild.id,
                 user: interaction.member.user.tag,
                 place: 'interactions',
-                action: 'person not in same voice',
+                action: 'command: person not in same voice',
             })
             return interaction.reply({
                 content: lang.errors.e4,
@@ -98,6 +98,13 @@ let commandHandler = async (interaction, client) => {
 }
 
 let buttonHandler = async (interaction, client) => {
+    logger.info({
+        guild: interaction.guild.id,
+        user: interaction.member.user.tag,
+        place: 'interactions',
+        action: 'button',
+    })
+
     const lang = getLanguage(interaction.locale)
     let playlist = client.playlists.get(interaction.guildId)
 
@@ -109,6 +116,13 @@ let buttonHandler = async (interaction, client) => {
     )
 
     if (permissions != true) {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: permission error',
+        })
+
         return interaction.reply({
             content: permissions,
             ephemeral: false,
@@ -116,10 +130,22 @@ let buttonHandler = async (interaction, client) => {
     }
 
     if (!isConnection(interaction.guild.id)) {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: delete old controller',
+        })
         return interaction.message.delete()
     }
 
     if (!interaction.member.voice.channel) {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: person not in voice',
+        })
         return interaction.reply({
             content: lang.errors.e3,
             ephemeral: true,
@@ -130,6 +156,12 @@ let buttonHandler = async (interaction, client) => {
         interaction.guild.members.cache.get(client.user.id).voice.channelId !=
         interaction.member.voice.channelId
     ) {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: person not in same voice',
+        })
         return interaction.reply({
             content: lang.errors.e4,
             ephemeral: true,
@@ -137,6 +169,13 @@ let buttonHandler = async (interaction, client) => {
     }
 
     if (interaction.customId == 'play_btn') {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: play_btn',
+        })
+
         const modal = new ModalBuilder()
             .setCustomId('addSong')
             .setTitle(lang.modals.addModal.title)
@@ -158,6 +197,13 @@ let buttonHandler = async (interaction, client) => {
     await interaction.deferUpdate()
 
     if (interaction.customId == 'close_btn') {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: close_btn',
+        })
+
         playlist.controller = false
 
         interaction.message.edit({
@@ -170,6 +216,13 @@ let buttonHandler = async (interaction, client) => {
     }
 
     if (interaction.customId == 'dc_btn') {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'button: dc_btn',
+        })
+
         interaction.message.edit({
             content: lang.commands.controller.messages.m2,
             components: [],
@@ -190,18 +243,53 @@ let buttonHandler = async (interaction, client) => {
 
     switch (interaction.customId) {
         case 'prev_btn':
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'button: prev_btn',
+            })
+
             playlist.prev()
             break
         case 'start_btn':
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'button: start_btn',
+            })
+
             playlist.start()
             break
         case 'stop_btn':
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'button: stop_btn',
+            })
+
             playlist.stop()
             break
         case 'skip_btn':
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'button: skip_btn',
+            })
+
             playlist.skip()
             break
         case 'loop_btn':
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'button: loop_btn',
+            })
+
             playlist.loop()
             break
     }
@@ -214,18 +302,39 @@ let buttonHandler = async (interaction, client) => {
 }
 
 let modalHandler = async (interaction, client) => {
+    logger.info({
+        guild: interaction.guild.id,
+        user: interaction.member.user.tag,
+        place: 'interactions',
+        action: 'modal',
+    })
+
     const lang = getLanguage(interaction.locale)
     let playlist = client.playlists.get(interaction.guildId)
 
     if (interaction.customId == 'addSong') {
+        logger.info({
+            guild: interaction.guild.id,
+            user: interaction.member.user.tag,
+            place: 'interactions',
+            action: 'modal: addSong',
+        })
         const link = interaction.fields.getTextInputValue('linkInput')
 
         let song = await getSong(link)
-        if (!song)
+        if (!song) {
+            logger.info({
+                guild: interaction.guild.id,
+                user: interaction.member.user.tag,
+                place: 'interactions',
+                action: 'modal: addSong: no song',
+            })
+
             return interaction.reply({
                 content: lang.commands.play.messages.m2,
                 ephemeral: true,
             })
+        }
         song.author = interaction.member.user.tag
 
         if (playlist.idle()) {
