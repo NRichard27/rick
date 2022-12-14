@@ -24,6 +24,16 @@ https://discord.com/api/oauth2/authorize?client_id={YOURAPPIDHERE}&permissions=8
 
 _Replace {YOURAPPIDHERE} with your App Id!_
 
+MUST HAVE PERMISSIONS TO WORK PROPERLY:
+
+-   View Channels
+-   Send Messages
+-   Manage Messages
+-   Embed Links
+-   Connect
+-   Speak
+-   Use Voice Activity
+
 ## Step 3: Installing the dependencies:
 
 Run:
