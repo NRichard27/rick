@@ -4,14 +4,13 @@
         "e2": "Rick isn't in a voice channel.",
         "e3": "To use the command, enter the voice channel where Rick is!",
         "e4": "You have to be in the same voice channel as Rick.",
-        "e5": "**DO NOT DELETE THIS MESSAGE BY HAND** Use the 'Close' button instead! \n - Message from the developer - \n Deleting by hand will crash the bot! I am working on a fix...",
-        "e6": "asd1",
-        "e7": "asd2",
-        "e8": "asd3",
-        "e9": "asd4",
-        "e10": "asd5",
-        "e11": "asd6",
-        "e12": "asd7"
+        "e6": "I do not have permission to view the voice channel you are in!",
+        "e7": "I do not have permission to connect to the voice channel you are in!",
+        "e8": "I do not have permission to talk in the voice channel you are in!",
+        "e9": "I do not have permission to view this channel!",
+        "e10": "I do not have permission to send messages in this channel!",
+        "e11": "I do not have permission to manage messages in this channel!",
+        "e12": "I do not have permission to embed links in this channel!"
     },
     "commands": {
         "controller": {
