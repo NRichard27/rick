@@ -77,11 +77,11 @@
         "play": {
             "command": "play",
             "hint": {
-                "message": "Воспроизводит музыку по ссылке из YouTube.",
+                "message": "Воспроизводит трек по ссылке YouTube или Spotify.",
                 "options": {
                     "o1": {
                         "name": "link",
-                        "description": "Ссылка на видео."
+                        "description": "Ссылка YouTube или Spotify."
                     }
                 }
             },

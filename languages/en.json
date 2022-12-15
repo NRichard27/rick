@@ -77,11 +77,11 @@
         "play": {
             "command": "play",
             "hint": {
-                "message": "Plays a song from a YouTube link.",
+                "message": "Plays a song from a YouTube or Spotify link.",
                 "options": {
                     "o1": {
                         "name": "link",
-                        "description": "YouTube video's link."
+                        "description": "YouTube video or Spotify track link."
                     }
                 }
             },

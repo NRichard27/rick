@@ -77,11 +77,11 @@
         "play": {
             "command": "play",
             "hint": {
-                "message": "Zene lejátszás YouTube link alapján.",
+                "message": "Zene lejátszás YouTube vagy Spotify link alapján.",
                 "options": {
                     "o1": {
                         "name": "link",
-                        "description": "YouTube videó linkje."
+                        "description": "YouTube videó vagy Spotify track link."
                     }
                 }
             },
