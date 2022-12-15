@@ -20,6 +20,10 @@ const pino = require('pino')
 const logger = pino()
 
 const getSong = async (link) => {
+    if (playdl.is_expired()) {
+        await playdl.refreshToken()
+    }
+
     let youtube = playdl.yt_validate(link)
 
     if (youtube && youtube != 'search') {
