@@ -14,6 +14,7 @@ module.exports = function Playlist(guildId) {
     this.looping = false
     this.paused = false
     this.controller = false
+    this.controllerMsg = { messageId: '', channelId: '' }
 
     this.player.on(AudioPlayerStatus.Idle, async () => {
         if (!this.looping) {
@@ -145,5 +146,6 @@ module.exports = function Playlist(guildId) {
         this.looping = false
         this.paused = false
         this.controller = false
+        this.controllerMsg = { messageId: '', channelId: '' }
     }
 }

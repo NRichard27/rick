@@ -4,7 +4,13 @@ const {
     VoiceConnectionStatus,
     getVoiceConnection,
 } = require('@discordjs/voice')
-const { languages, getSong, isConnection, logger } = require('../utils')
+const {
+    languages,
+    getSong,
+    isConnection,
+    logger,
+    checkPermissions,
+} = require('../utils')
 const Playlist = require('../playlist')
 
 module.exports = {
@@ -157,7 +163,7 @@ module.exports = {
                 adapterCreator: channel.guild.voiceAdapterCreator,
             })
 
-            connection.on(VoiceConnectionStatus.Disconnected, () => {
+            connection.on(VoiceConnectionStatus.Disconnected, async () => {
                 logger.info({
                     guild: interaction.guild.id,
                     user: interaction.member.user.tag,
@@ -165,6 +171,40 @@ module.exports = {
                     command: 'play',
                     action: 'manually disconnected',
                 })
+
+                if (playlist.controllerMsg.messageId != '') {
+                    logger.info({
+                        guild: interaction.guild.id,
+                        user: interaction.member.user.tag,
+                        place: 'commands',
+                        command: 'play',
+                        action: 'deleted controller',
+                    })
+
+                    const channel = interaction.guild.channels.cache.get(
+                        playlist.controllerMsg.channelId
+                    )
+
+                    const permissions = checkPermissions(
+                        ['ViewChannel', 'ManageMessages', 'ReadMessageHistory'],
+                        channel,
+                        client.user,
+                        ['', '', '']
+                    )
+
+                    if (permissions == true) {
+                        let message = await channel.messages.fetch(
+                            playlist.controllerMsg.messageId
+                        )
+
+                        message.edit({
+                            content: lang.commands.controller.messages.m2,
+                            components: [],
+                            embeds: [],
+                        })
+                    }
+                }
+
                 playlist.stop()
 
                 let conn = getVoiceConnection(interaction.guild.id)

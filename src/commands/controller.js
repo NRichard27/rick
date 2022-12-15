@@ -111,12 +111,25 @@ module.exports = {
 
         playlist.controller = true
 
-        await interaction.reply({
-            embeds: [
-                getControllerEmbed(playlist, lang, interaction.guild.iconURL()),
-            ],
-            ephemeral: false,
-            components: [playerControls, botControls],
-        })
+        await interaction
+            .reply({
+                embeds: [
+                    getControllerEmbed(
+                        playlist,
+                        lang,
+                        interaction.guild.iconURL()
+                    ),
+                ],
+                ephemeral: false,
+                components: [playerControls, botControls],
+            })
+            .then(async () => {
+                let message = await interaction.fetchReply()
+
+                playlist.controllerMsg = {
+                    messageId: message.id,
+                    channelId: message.channelId,
+                }
+            })
     },
 }

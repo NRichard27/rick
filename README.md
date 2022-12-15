@@ -28,6 +28,7 @@ MUST HAVE PERMISSIONS TO WORK PROPERLY:
 
 -   View Channels
 -   Send Messages
+-   Read Message History
 -   Manage Messages
 -   Embed Links
 -   Connect
