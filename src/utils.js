@@ -1,5 +1,14 @@
 const playdl = require('play-dl')
 
+playdl.setToken({
+    spotify: {
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+        refresh_token: process.env.SPOTIFY_REFRESH_TOKEN,
+        market: 'US',
+    },
+})
+
 const { EmbedBuilder } = require('discord.js')
 const { getVoiceConnection } = require('@discordjs/voice')
 
@@ -19,6 +28,24 @@ const getSong = async (link) => {
         return {
             link: info.video_details.url,
             title: info.video_details.title,
+        }
+    }
+
+    let spotify = playdl.sp_validate(link)
+
+    if (spotify && spotify != 'search') {
+        let info = await playdl.spotify(link)
+
+        let searched = await playdl.search(
+            `${info.artists[0].name} ${info.name}`,
+            {
+                limit: 1,
+            }
+        )
+
+        return {
+            link: searched[0].url,
+            title: `${info.artists[0].name} ${info.name}`,
         }
     }
 
