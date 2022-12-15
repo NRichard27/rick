@@ -10,8 +10,8 @@ module.exports = {
         })
         .setDescription(languages.en.commands.start.hint)
         .setDescriptionLocalizations({
-            ru: languages.hu.commands.start.hint,
-            hu: languages.ru.commands.start.hint,
+            hu: languages.hu.commands.start.hint,
+            ru: languages.ru.commands.start.hint,
         })
         .setDMPermission(false),
     execute: async (interaction, playlist, lang) => {
