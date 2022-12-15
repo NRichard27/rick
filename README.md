@@ -14,9 +14,15 @@ Create a file named '.env' and paste this in:
 DC_BOT_TOKEN=value-here
 DC_APP_ID=value-here
 DC_DEV_USER_ID=value-here
+
+SPOTIFY_CLIENT_ID=value-here
+SPOTIFY_CLIENT_SECRET=value-here
+SPOTIFY_REFRESH_TOKEN=value-here
+SPOTIFY_MARKET=US
+
 ```
 
-Replace the values with your own Token, App Id and User Id(optional).
+Replace the variables with your own values.
 
 ## Step 2: Inviting your bot to a server
 
