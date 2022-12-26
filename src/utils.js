@@ -26,7 +26,7 @@ const getSong = async (link) => {
 
     let youtube = playdl.yt_validate(link)
 
-    if (youtube && youtube != 'search') {
+    if (youtube == 'video') {
         let info = await playdl.video_info(link)
 
         return {
@@ -37,7 +37,7 @@ const getSong = async (link) => {
 
     let spotify = playdl.sp_validate(link)
 
-    if (spotify && spotify != 'search') {
+    if (spotify == 'track') {
         let info = await playdl.spotify(link)
 
         let searched = await playdl.search(
