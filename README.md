@@ -1,6 +1,6 @@
 # Rick
 
-A Discord music bot.
+A Discord music bot. (YouTube and Spotify supported)
 
 _Tested only with NodeJS version 18.12.0_
 
@@ -13,7 +13,7 @@ Create a file named '.env' and paste this in:
 ```
 DC_BOT_TOKEN=value-here
 DC_APP_ID=value-here
-DC_DEV_USER_ID=value-here
+DC_DEV_USER_ID=value-here(optional)
 
 SPOTIFY_CLIENT_ID=value-here
 SPOTIFY_CLIENT_SECRET=value-here
