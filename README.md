@@ -27,6 +27,7 @@ Replace the variables with your own values.
 ## Step 2: Inviting your bot to a server
 
 https://discord.com/api/oauth2/authorize?client_id={YOURAPPIDHERE}&permissions=8&scope=bot%20applications.commands
+**(IT WILL GIVE ADMIN PRIVILIGES)**
 
 _Replace {YOURAPPIDHERE} with your App Id!_
 
